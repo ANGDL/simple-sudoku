@@ -4,7 +4,7 @@
 
 ## Usage
 
-python --image='sudoku1.jpg' --template='123456789.jpg'
+python sudoku.py --image='sudoku1.jpg' --template='123456789.jpg'
 
 ## Demo
 
