@@ -182,21 +182,4 @@ if __name__ == '__main__':
     solution = SolutionSudoku()
     out = solution(template, img)
 
-    fig, ax = plt.subplots()
-    im = ax.imshow(np.ones((10, 10)))
-
-    for i in range(9):
-        for j in range(9):
-            text = ax.text(j, i, out[i, j],
-                           ha="center", va="center", color="w")
-    ax.grid(True, linestyle='-')
-    ax.set_xlim((-0.5, 8.5))
-    ax.set_ylim((-0.5, 8.5))
-    # x_ticks = np.arange(-0.5, 8.5, 1)
-    # y_ticks = np.arange(-0.5, 8.5, 1)
-    # ax.set_xticks(x_ticks)
-    # ax.set_yticks(y_ticks)
-    plt.axis('off')
-    plt.savefig("solution.png")
-    plt.show()
     print(out)
