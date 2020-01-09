@@ -42,7 +42,7 @@ class ImageToArray:
 
     def __call__(self, sudoku_img):
         # 读取图片
-        sudoku = cv2.imread("sudoku1.jpg")
+        sudoku = cv2.imread(sudoku_img)
         # 缩放
         scale = 0.5
         w = int(sudoku.shape[1] * scale)
@@ -75,6 +75,7 @@ class ImageToArray:
         # plt.show()
         s = max(box.shape[0] - box.shape[0] % 9, box.shape[1] - box.shape[1] % 9)
         box = cv2.resize(box, (s, s))
+        # cv_show_image("", box)
         # 拆分数字
         gride_w = 9
         gride_h = 9
@@ -98,7 +99,8 @@ class ImageToArray:
             roi = digit_img[y:y + h, x:x + w]
             roi = cv2.resize(roi, (57, 88))
             roi = cv2.threshold(roi, 10, 255, cv2.THRESH_BINARY)[1]
-            #     cv_show_image("", roi)
+
+            # cv_show_image("", roi)
             scores = []
             for ref_digit_img in self.ref_imgs:
                 ref_digit_img = cv2.resize(ref_digit_img, (57, 88))
@@ -163,15 +165,19 @@ class SolutionSudoku:
     def __call__(self, template, sudoku_img):
         self.is_solved = False
         board = ImageToArray(template)(sudoku_img)
-        self.solve(board)
+        print(board)
+        try:
+            self.solve(board)
+        except Exception:
+            pass
         return board
 
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument("-i", "--template", default='123456789.jpg',
+    parser.add_argument("-i", "--template", default='123456789-2.jpg',
                     help="path to input image")
-    parser.add_argument("-t", "--image", default='sudoku1.jpg',
+    parser.add_argument("-t", "--image", default='sudoku3.jpg',
                     help="path to template image")
 
     args = parser.parse_args()
